@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Loginview extends StatefulWidget {
   const Loginview({super.key});
@@ -63,13 +62,13 @@ class _LoginviewState extends State<Loginview> {
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        Text(
+                        const Text(
                           'LOGIN',
-                          style: GoogleFonts.junge(
-                              fontSize: 38,
-                              fontWeight: FontWeight.bold,
+                          style:TextStyle(
+                            fontSize: 38,
+                              fontWeight: FontWeight.w600,
                               color: Colors.black,
-                            ),
+                          ),
                           ),
                           _gap,
                         TextFormField(
@@ -124,7 +123,7 @@ class _LoginviewState extends State<Loginview> {
                             onPressed: () {}, 
                             child: Text(
                               'Sign In',
-                              style: GoogleFonts.inter(
+                              style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.white,
