@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Registerview extends StatefulWidget {
   const Registerview({super.key});
@@ -65,11 +64,11 @@ class _RegisterviewState extends State<Registerview> {
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        Text(
+                        const Text(
                           'Register',
-                          style: GoogleFonts.junge(
+                          style:TextStyle(
                               fontSize: 38,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w400,
                               color: Colors.black,
                             ),
                           ),
@@ -146,7 +145,7 @@ class _RegisterviewState extends State<Registerview> {
                             onPressed: () {}, 
                             child: Text(
                               'Sign In',
-                              style: GoogleFonts.inter(
+                              style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.w300,
                                 color: Colors.white,
