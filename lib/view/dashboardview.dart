@@ -17,12 +17,6 @@ class Dashboardview extends StatelessWidget {
           },
         ),
       ),
-      body: const Center(
-        child: Text(
-          "Dashboard",
-          style: TextStyle(fontSize: 40),
-        ),
-      ),
     );
   }
 }
