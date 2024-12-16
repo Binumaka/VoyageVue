@@ -9,9 +9,7 @@ class Registerview extends StatefulWidget {
 }
 
 class RegisterviewState extends State<Registerview> {
-  final _gap = const SizedBox(
-    height: 14,
-  );
+  final _gap = const SizedBox(height: 20);
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -28,195 +26,194 @@ class RegisterviewState extends State<Registerview> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              flex: 1,
-              child: ClipRRect(
-                child: Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(125),
-                      bottomLeft: Radius.circular(125),
-                    ),
-                    color: Color.fromARGB(199, 181, 181, 183),
-                  ),
-                  child: Center(
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 200,
-                      child: Image.asset(
-                        'assets/images/image1.png',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween, // This ensures the last part is at the bottom
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.3,
+                width: double.infinity,
+                color: Colors.white,
+                child: Image.asset(
+                  'assets/images/image.png',
+                  fit: BoxFit.cover,
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Expanded(
-              flex: 2,
-              child: SingleChildScrollView(
-                child: Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(50),
-                    ),
-                    color: Color.fromARGB(255, 220, 210, 209),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      children: [
-                        const Text(
-                          'Register',
-                          style: TextStyle(
-                            fontSize: 38,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black,
+              Container(
+                height: MediaQuery.of(context).size.height * 0.6,
+                width: double.infinity,
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      _gap,
+                      TextFormField(
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.email, color: Colors.black),
+                          labelText: 'Email',
+                          hintText: 'abc@gmail.com',
+                          hintStyle: const TextStyle(
+                            color: Color.fromARGB(255, 162, 158, 158),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        _gap,
-                        TextFormField(
-                          controller: _emailController,
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            hintText: 'abc@gmail.com',
-                            hintStyle: const TextStyle(
-                              color: Color.fromARGB(255, 162, 158, 158),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
+                      ),
+                      _gap,
+                      TextFormField(
+                        controller: _usernameController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.person, color: Colors.black),
+                          labelText: 'Username',
+                          hintText: 'abc',
+                          hintStyle: const TextStyle(
+                            color: Color.fromARGB(255, 162, 158, 158),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        _gap,
-                        TextFormField(
-                          controller: _usernameController,
-                          decoration: InputDecoration(
-                            labelText: 'Username',
-                            hintText: 'abc',
-                            hintStyle: const TextStyle(
-                              color: Color.fromARGB(255, 162, 158, 158),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
+                      ),
+                      _gap,
+                      TextFormField(
+                        controller: _passwordController,
+                        obscureText: !isPasswordVisible,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.lock, color: Colors.black),
+                          labelText: 'Password',
+                          hintText: '********',
+                          hintStyle: const TextStyle(
+                            color: Color.fromARGB(255, 162, 158, 158),
                           ),
-                        ),
-                        _gap,
-                        TextFormField(
-                          controller: _passwordController,
-                          obscureText: !isPasswordVisible,
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            hintText: '********',
-                            hintStyle: const TextStyle(
-                              color: Color.fromARGB(255, 162, 158, 158),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                        ),
-                        _gap,
-                        TextFormField(
-                          controller: _confirmpasswordController,
-                          obscureText: !isConfirmPasswordVisible,
-                          decoration: InputDecoration(
-                            labelText: 'Confirm Password',
-                            hintText: '********',
-                            hintStyle: const TextStyle(
-                              color: Color.fromARGB(255, 162, 158, 158),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              backgroundColor: Colors.blue,
-                              padding: const EdgeInsets.symmetric(vertical: 6),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              isPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                             ),
                             onPressed: () {
-                              if (_passwordController.text ==
-                                  _confirmpasswordController.text) {
-                                // Store the email and password in memory
-                                setState(() {
-                                  registeredEmail = _emailController.text;
-                                  registeredPassword = _passwordController.text;
-                                });
-                
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Registered successfully!')),
-                                );
-                
-                                // Navigate back to LoginPageView
-                                Future.delayed(const Duration(seconds: 1), () {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const Loginview(),
-                                    ),
-                                  );
-                                });
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text('Passwords do not match!')),
-                                );
-                              }
+                              setState(() {
+                                isPasswordVisible = !isPasswordVisible;
+                              });
                             },
-                            child: const Text(
-                              'Sign Up',
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.white,
-                              ),
-                            ),
                           ),
                         ),
-                        _gap,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('Already have an account?'),
-                            TextButton(
-                              onPressed: () {
+                      ),
+                      _gap,
+                      TextFormField(
+                        controller: _confirmpasswordController,
+                        obscureText: !isConfirmPasswordVisible,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.lock_clock, color: Colors.black),
+                          labelText: 'Confirm Password',
+                          hintText: '********',
+                          hintStyle: const TextStyle(
+                            color: Color.fromARGB(255, 162, 158, 158),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              isConfirmPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                isConfirmPasswordVisible =
+                                    !isConfirmPasswordVisible;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            backgroundColor: const Color.fromARGB(255, 93, 178, 247),
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                          ),
+                          onPressed: () {
+                            if (_passwordController.text ==
+                                _confirmpasswordController.text) {
+                              setState(() {
+                                registeredEmail = _emailController.text;
+                                registeredPassword = _passwordController.text;
+                              });
+                
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Registered successfully!')),
+                              );
+                              Future.delayed(const Duration(seconds: 1), () {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const Loginview()),
+                                    builder: (context) => const Loginview(),
+                                  ),
                                 );
-                              },
-                              child: const Text('Sign In'),
+                              });
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Passwords do not match!')),
+                              );
+                            }
+                          },
+                          child: const Text(
+                            'Register',
+                            style: TextStyle(
+                              fontFamily: 'Junge',
+                              fontSize: 22,
+                              color: Colors.white,
                             ),
-                          ],
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ),
-          ],
+              Container(
+                height: 1,
+                color: Colors.grey.shade400,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Already have an account?'),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Loginview()),
+                      );
+                    },
+                    child: const Text(
+                      'Sign In',
+                      style: TextStyle(
+                          fontFamily: 'Inter', color: Colors.blue),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
