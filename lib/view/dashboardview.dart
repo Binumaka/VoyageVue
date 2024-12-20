@@ -23,15 +23,18 @@ class _DashboardviewState extends State<Dashboardview> {
   ];
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xffC8C5C5),
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               "assets/images/imgvoyagevue.png",
-              height: 250,
-              width: 360,
+              height: screenHeight * 0.22,
+              width: screenWidth * 0.5,
             )
           ],
         ),

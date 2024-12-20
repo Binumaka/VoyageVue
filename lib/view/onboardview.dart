@@ -78,7 +78,7 @@ class _OnboardviewState extends State<Onboardview> {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage(_onboardingData[index]["image"]!),
-                          fit: BoxFit.cover,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ),

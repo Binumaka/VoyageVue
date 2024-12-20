@@ -58,6 +58,9 @@ class Homeview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -67,7 +70,7 @@ class Homeview extends StatelessWidget {
               clipBehavior: Clip.none,
               children: [
                 Container(
-                  height: 30,
+                  height: screenHeight * 0.05,
                   decoration: const BoxDecoration(
                     color: Color(0xffC8C5C5),
                     borderRadius: BorderRadius.only(
@@ -81,9 +84,10 @@ class Homeview extends StatelessWidget {
                   right: 1,
                   left: 1,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 35),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
                     child: Container(
-                      height: 50,
+                      height: screenHeight * 0.07,
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 238, 235, 235),
                         borderRadius: BorderRadius.circular(30),
@@ -95,16 +99,17 @@ class Homeview extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: const Row(
+                      child: Row(
                         children: [
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: Icon(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.05),
+                            child: const Icon(
                               Icons.search,
                               color: Colors.grey,
                             ),
                           ),
-                          Expanded(
+                          const Expanded(
                             child: TextField(
                               decoration: InputDecoration(
                                 hintText: 'Search destinations',
@@ -121,7 +126,7 @@ class Homeview extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 40),
+            SizedBox(height: screenHeight * 0.08),
 
             // Scrollable Content
             Expanded(
@@ -129,9 +134,10 @@ class Homeview extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                      child: const Text(
                         'Destinations',
                         style: TextStyle(
                           fontSize: 24,
@@ -140,22 +146,23 @@ class Homeview extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 18),
+                    SizedBox(height: screenHeight * 0.02),
 
-                    // Rest of your content remains the same
+                    // Categories Section
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                       child: Row(
                         children: List.generate(
                           categories.length,
                           (index) => Container(
-                            margin: const EdgeInsets.only(right: 14),
+                            margin: EdgeInsets.only(right: screenWidth * 0.04),
                             child: Column(
                               children: [
                                 Container(
-                                  width: 65,
-                                  height: 65,
+                                  width: screenWidth * 0.09,
+                                  height: screenWidth * 0.1,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: Colors.grey[300],
@@ -173,9 +180,9 @@ class Homeview extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                const SizedBox(height: 6),
+                                SizedBox(height: screenHeight * 0.01),
                                 SizedBox(
-                                  width: 80,
+                                  width: screenWidth * 0.2,
                                   child: Text(
                                     categories[index]['label']!,
                                     textAlign: TextAlign.center,
@@ -192,12 +199,13 @@ class Homeview extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 18),
+                    SizedBox(height: screenHeight * 0.03),
 
                     // Top Destinations Section
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                      child: const Text(
                         'Top Destination',
                         style: TextStyle(
                           fontSize: 22,
@@ -206,18 +214,19 @@ class Homeview extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 16),
+                    SizedBox(height: screenHeight * 0.02),
 
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                       child: Row(
                         children: List.generate(
                           topDestinations.length,
                           (index) => Container(
-                            margin: const EdgeInsets.only(right: 16),
-                            width: 170,
-                            height: 230,
+                            margin: EdgeInsets.only(right: screenWidth * 0.04),
+                            width: screenWidth * 0.3,
+                            height: screenHeight * 0.25,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               image: DecorationImage(
@@ -245,7 +254,7 @@ class Homeview extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              padding: const EdgeInsets.all(16),
+                              padding: EdgeInsets.all(screenWidth * 0.04),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,12 +275,13 @@ class Homeview extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 20),
+                    SizedBox(height: screenHeight * 0.03),
 
                     // More To Explore Section
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                      child: const Text(
                         'More To Explore',
                         style: TextStyle(
                           fontSize: 22,
@@ -280,18 +290,19 @@ class Homeview extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 14),
+                    SizedBox(height: screenHeight * 0.02),
 
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                       child: Row(
                         children: List.generate(
                           moreToExplore.length,
                           (index) => Container(
-                            margin: const EdgeInsets.only(right: 16),
-                            width: 170,
-                            height: 230,
+                            margin: EdgeInsets.only(right: screenWidth * 0.04),
+                            width: screenWidth * 0.3,
+                            height: screenHeight * 0.25,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               image: DecorationImage(
@@ -307,7 +318,7 @@ class Homeview extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            padding: const EdgeInsets.all(16),
+                            padding: EdgeInsets.all(screenWidth * 0.04),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -327,7 +338,7 @@ class Homeview extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 20),
+                    SizedBox(height: screenHeight * 0.03),
                   ],
                 ),
               ),
