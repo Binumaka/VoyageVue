@@ -14,7 +14,7 @@ class _OnboardviewState extends State<Onboardview> {
 
   final List<Map<String, String>> _onboardingData = [
     {
-      "image": "assets/images/image1.png",
+      "image": "assets/images/onboarding3.png",
       "title": "Visit your Dream Destination",
       "description": "Lets view the world together with more joy."
     },
@@ -46,6 +46,14 @@ class _OnboardviewState extends State<Onboardview> {
     }
   }
 
+  void _goToPage(int index) {
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,22 +71,26 @@ class _OnboardviewState extends State<Onboardview> {
               return Column(
                 children: [
                   // Image container covering half the screen
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(_onboardingData[index]["image"]!),
-                        fit: BoxFit.cover,
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(_onboardingData[index]["image"]!),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
                   // Text content
                   Expanded(
+                    flex: 1,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          padding: const EdgeInsets.only(top: 100),
                           child: Text(
                             _onboardingData[index]["title"]!,
                             style: const TextStyle(
@@ -117,16 +129,19 @@ class _OnboardviewState extends State<Onboardview> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
                     _onboardingData.length,
-                    (index) => AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      margin: const EdgeInsets.symmetric(horizontal: 5),
-                      height: 10,
-                      width: _currentPage == index ? 20 : 10,
-                      decoration: BoxDecoration(
-                        color: _currentPage == index
-                            ? Colors.blue
-                            : Colors.grey,
-                        borderRadius: BorderRadius.circular(5),
+                    (index) => GestureDetector(
+                      onTap: () => _goToPage(index),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
+                        height: 10,
+                        width: _currentPage == index ? 20 : 10,
+                        decoration: BoxDecoration(
+                          color: _currentPage == index
+                              ? Colors.blue
+                              : const Color.fromARGB(255, 241, 239, 239),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
                       ),
                     ),
                   ),
@@ -135,7 +150,6 @@ class _OnboardviewState extends State<Onboardview> {
                 ElevatedButton(
                   onPressed: _nextPage,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 50, vertical: 15),
                   ),
@@ -143,6 +157,7 @@ class _OnboardviewState extends State<Onboardview> {
                     _currentPage == _onboardingData.length - 1
                         ? "Get Started"
                         : "Next",
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
               ],
