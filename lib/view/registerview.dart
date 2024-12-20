@@ -9,7 +9,7 @@ class Registerview extends StatefulWidget {
 }
 
 class RegisterviewState extends State<Registerview> {
-  final _gap = const SizedBox(height: 20);
+  final _gap = const SizedBox(height: 25);
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -28,15 +28,16 @@ class RegisterviewState extends State<Registerview> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, // This ensures the last part is at the bottom
+            mainAxisAlignment: MainAxisAlignment
+                .spaceBetween, // This ensures the last part is at the bottom
             children: [
               Container(
                 height: MediaQuery.of(context).size.height * 0.3,
                 width: double.infinity,
                 color: Colors.white,
                 child: Image.asset(
-                  'assets/images/image.png',
-                  fit: BoxFit.cover,
+                  'assets/images/Journey-bro.png',
+                  fit: BoxFit.contain,
                 ),
               ),
               Container(
@@ -44,14 +45,22 @@ class RegisterviewState extends State<Registerview> {
                 width: double.infinity,
                 color: Colors.white,
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
+                      const Text(
+                        'Register',
+                        style: TextStyle(
+                            fontFamily: 'Junge',
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold),
+                      ),
                       _gap,
                       TextFormField(
                         controller: _emailController,
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.email, color: Colors.black),
+                          prefixIcon:
+                              const Icon(Icons.email, color: Colors.black),
                           labelText: 'Email',
                           hintText: 'abc@gmail.com',
                           hintStyle: const TextStyle(
@@ -66,7 +75,8 @@ class RegisterviewState extends State<Registerview> {
                       TextFormField(
                         controller: _usernameController,
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.person, color: Colors.black),
+                          prefixIcon:
+                              const Icon(Icons.person, color: Colors.black),
                           labelText: 'Username',
                           hintText: 'abc',
                           hintStyle: const TextStyle(
@@ -82,7 +92,8 @@ class RegisterviewState extends State<Registerview> {
                         controller: _passwordController,
                         obscureText: !isPasswordVisible,
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.lock, color: Colors.black),
+                          prefixIcon:
+                              const Icon(Icons.lock, color: Colors.black),
                           labelText: 'Password',
                           hintText: '********',
                           hintStyle: const TextStyle(
@@ -110,7 +121,8 @@ class RegisterviewState extends State<Registerview> {
                         controller: _confirmpasswordController,
                         obscureText: !isConfirmPasswordVisible,
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.lock_clock, color: Colors.black),
+                          prefixIcon:
+                              const Icon(Icons.lock_clock, color: Colors.black),
                           labelText: 'Confirm Password',
                           hintText: '********',
                           hintStyle: const TextStyle(
@@ -144,7 +156,7 @@ class RegisterviewState extends State<Registerview> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            backgroundColor: const Color.fromARGB(255, 93, 178, 247),
+                            // backgroundColor: const Color.fromARGB(255, 93, 178, 247),
                             padding: const EdgeInsets.symmetric(vertical: 8),
                           ),
                           onPressed: () {
@@ -154,7 +166,7 @@ class RegisterviewState extends State<Registerview> {
                                 registeredEmail = _emailController.text;
                                 registeredPassword = _passwordController.text;
                               });
-                
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     content: Text('Registered successfully!')),
@@ -175,10 +187,9 @@ class RegisterviewState extends State<Registerview> {
                             }
                           },
                           child: const Text(
-                            'Register',
+                            'Sign Up',
                             style: TextStyle(
-                              fontFamily: 'Junge',
-                              fontSize: 22,
+                              fontSize: 17,
                               color: Colors.white,
                             ),
                           ),
@@ -195,7 +206,12 @@ class RegisterviewState extends State<Registerview> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Already have an account?'),
+                  const Text(
+                    'Already have an account?',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                    ),
+                  ),
                   TextButton(
                     onPressed: () {
                       Navigator.pushReplacement(
@@ -206,8 +222,7 @@ class RegisterviewState extends State<Registerview> {
                     },
                     child: const Text(
                       'Sign In',
-                      style: TextStyle(
-                          fontFamily: 'Inter', color: Colors.blue),
+                      style: TextStyle(fontFamily: 'Inter', color: Colors.blue),
                     ),
                   ),
                 ],

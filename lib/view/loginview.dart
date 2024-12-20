@@ -10,7 +10,7 @@ class Loginview extends StatefulWidget {
 }
 
 class _LoginviewState extends State<Loginview> {
-  final _gap = const SizedBox(height: 20);
+  final _gap = const SizedBox(height: 25);
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -30,9 +30,10 @@ class _LoginviewState extends State<Loginview> {
               Container(
                 height: MediaQuery.of(context).size.height * 0.3,
                 width: double.infinity,
-                color:Colors.white,
-                child: Image.asset('assets/images/image.png',
-                fit: BoxFit.cover,
+                color: Colors.white,
+                child: Image.asset(
+                  'assets/images/Journey-bro.png',
+                  fit: BoxFit.contain,
                 ),
               ),
               // Login Form Section
@@ -41,19 +42,28 @@ class _LoginviewState extends State<Loginview> {
                 width: double.infinity,
                 color: Colors.white,
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
                       Form(
                         key: _formKey,
                         child: Column(
                           children: [
-                            const SizedBox(height: 60),
+                            const Text(
+                              'Log In',
+                              style: TextStyle(
+                                  fontFamily: 'Junge',
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold),
+                            ),
+
+                            const SizedBox(height: 40),
                             // Email Field
                             TextFormField(
                               controller: _emailController,
                               decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.email, color: Colors.black),
+                                prefixIcon: const Icon(Icons.email,
+                                    size: 20, color: Colors.black),
                                 labelText: 'Email',
                                 hintText: 'abc@gmail.com',
                                 hintStyle: const TextStyle(
@@ -82,7 +92,8 @@ class _LoginviewState extends State<Loginview> {
                               controller: _passwordController,
                               obscureText: !_isPasswordVisible,
                               decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.lock, color: Colors.black),
+                                prefixIcon: const Icon(Icons.lock,
+                                    size: 20, color: Colors.black),
                                 labelText: 'Password',
                                 hintText: '********',
                                 hintStyle: const TextStyle(
@@ -96,6 +107,7 @@ class _LoginviewState extends State<Loginview> {
                                     _isPasswordVisible
                                         ? Icons.visibility
                                         : Icons.visibility_off,
+                                    size: 20,
                                   ),
                                   onPressed: () {
                                     setState(() {
@@ -132,7 +144,8 @@ class _LoginviewState extends State<Loginview> {
                                 },
                                 child: const Text(
                                   "Forgot password?",
-                                  style: TextStyle(color: Colors.blue),
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.blue),
                                 ),
                               ),
                             ),
@@ -146,15 +159,15 @@ class _LoginviewState extends State<Loginview> {
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  backgroundColor: const Color.fromARGB(255, 101, 177, 240),
+                                  // backgroundColor:
+                                  //     const Color.fromARGB(255, 101, 177, 240),
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 6),
                                 ),
                                 child: const Text(
-                                  'Log In',
+                                  'Sign In',
                                   style: TextStyle(
-                                    fontFamily: 'Junge',
-                                    fontSize: 22,
+                                    fontSize: 18,
                                     color: Colors.white,
                                   ),
                                 ),
