@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:voyagevue/view/loginview.dart';
+import 'package:voyagevue/features/auth/presentation/view/loginview.dart';
 
-class Onboardview extends StatefulWidget {
-  const Onboardview({super.key});
+class Onboardview extends StatelessWidget {
+  Onboardview({super.key});
 
-  @override
-  _OnboardviewState createState() => _OnboardviewState();
-}
-
-class _OnboardviewState extends State<Onboardview> {
   final PageController _pageController = PageController();
-  int _currentPage = 0;
+  final ValueNotifier<int> _currentPageNotifier = ValueNotifier<int>(0);
 
   final List<Map<String, String>> _onboardingData = [
     {
@@ -32,8 +27,8 @@ class _OnboardviewState extends State<Onboardview> {
     },
   ];
 
-  void _nextPage() {
-    if (_currentPage < _onboardingData.length - 1) {
+  void _nextPage(BuildContext context) {
+    if (_currentPageNotifier.value < _onboardingData.length - 1) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
@@ -41,7 +36,7 @@ class _OnboardviewState extends State<Onboardview> {
     } else {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const Loginview()),
+        MaterialPageRoute(builder: (context) => const LoginView()),
       );
     }
   }
@@ -62,9 +57,7 @@ class _OnboardviewState extends State<Onboardview> {
           PageView.builder(
             controller: _pageController,
             onPageChanged: (index) {
-              setState(() {
-                _currentPage = index;
-              });
+              _currentPageNotifier.value = index;
             },
             itemCount: _onboardingData.length,
             itemBuilder: (context, index) {
@@ -125,39 +118,49 @@ class _OnboardviewState extends State<Onboardview> {
             right: 0,
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                    _onboardingData.length,
-                    (index) => GestureDetector(
-                      onTap: () => _goToPage(index),
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                        height: 10,
-                        width: _currentPage == index ? 20 : 10,
-                        decoration: BoxDecoration(
-                          color: _currentPage == index
-                              ? Colors.blue
-                              : const Color.fromARGB(255, 241, 239, 239),
-                          borderRadius: BorderRadius.circular(5),
+                ValueListenableBuilder<int>(
+                  valueListenable: _currentPageNotifier,
+                  builder: (context, currentPage, child) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        _onboardingData.length,
+                        (index) => GestureDetector(
+                          onTap: () => _goToPage(index),
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            height: 10,
+                            width: currentPage == index ? 20 : 10,
+                            decoration: BoxDecoration(
+                              color: currentPage == index
+                                  ? Colors.blue
+                                  : const Color.fromARGB(255, 241, 239, 239),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: _nextPage,
+                  onPressed: () => _nextPage(context),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 50, vertical: 15),
                   ),
-                  child: Text(
-                    _currentPage == _onboardingData.length - 1
-                        ? "Get Started"
-                        : "Next",
-                    style: const TextStyle(color: Colors.white),
+                  child: ValueListenableBuilder<int>(
+                    valueListenable: _currentPageNotifier,
+                    builder: (context, currentPage, child) {
+                      return Text(
+                        currentPage == _onboardingData.length - 1
+                            ? "Get Started"
+                            : "Next",
+                        style: const TextStyle(color: Colors.white),
+                      );
+                    },
                   ),
                 ),
               ],
