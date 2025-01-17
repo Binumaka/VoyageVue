@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:voyagevue/view/dashboardview.dart';
-import 'package:voyagevue/view/registerview.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:voyagevue/core/common/snackbar/my_snackbar.dart';
+import 'package:voyagevue/features/auth/presentation/view/registerview.dart';
+import 'package:voyagevue/features/auth/presentation/view_model/login/login_bloc.dart';
+import 'package:voyagevue/features/home/presentation/view/dashboardview.dart';
 
-class Loginview extends StatefulWidget {
-  const Loginview({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
   @override
-  State<Loginview> createState() => _LoginviewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginviewState extends State<Loginview> {
-  final _gap = const SizedBox(height: 25);
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  String? _errorMessage;
+class _LoginViewState extends State<LoginView> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController(text: 'binu@gmail.com');
+  final _passwordController = TextEditingController(text: 'binu12345');
   bool _isPasswordVisible = false;
+  String? _errorMessage;
+
+  final _gap = const SizedBox(height: 25);
 
   @override
   Widget build(BuildContext context) {
@@ -52,18 +55,22 @@ class _LoginviewState extends State<Loginview> {
                             const Text(
                               'Log In',
                               style: TextStyle(
-                                  fontFamily: 'Junge',
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold),
+                                fontFamily: 'Junge',
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-
                             const SizedBox(height: 40),
                             // Email Field
                             TextFormField(
+                              key: const ValueKey('username'),
                               controller: _emailController,
                               decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.email,
-                                    size: 20, color: Colors.black),
+                                prefixIcon: const Icon(
+                                  Icons.email,
+                                  size: 20,
+                                  color: Colors.black,
+                                ),
                                 labelText: 'Email',
                                 hintText: 'abc@gmail.com',
                                 hintStyle: const TextStyle(
@@ -75,13 +82,8 @@ class _LoginviewState extends State<Loginview> {
                               ),
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter an email';
-                                }
-                                if (!RegExp(
-                                        r'^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-zA-Z]{2,}$')
-                                    .hasMatch(value)) {
-                                  return 'Please enter a valid email';
+                                if (value!.isEmpty) {
+                                  return 'Please enter username';
                                 }
                                 return null;
                               },
@@ -89,11 +91,15 @@ class _LoginviewState extends State<Loginview> {
                             _gap,
                             // Password Field
                             TextFormField(
+                              key: const ValueKey('password'),
                               controller: _passwordController,
                               obscureText: !_isPasswordVisible,
                               decoration: InputDecoration(
-                                prefixIcon: const Icon(Icons.lock,
-                                    size: 20, color: Colors.black),
+                                prefixIcon: const Icon(
+                                  Icons.lock,
+                                  size: 20,
+                                  color: Colors.black,
+                                ),
                                 labelText: 'Password',
                                 hintText: '********',
                                 hintStyle: const TextStyle(
@@ -118,7 +124,7 @@ class _LoginviewState extends State<Loginview> {
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter a password';
+                                  return 'Please enter password';
                                 }
                                 return null;
                               },
@@ -131,7 +137,9 @@ class _LoginviewState extends State<Loginview> {
                                 child: Text(
                                   _errorMessage!,
                                   style: const TextStyle(
-                                      color: Colors.red, fontSize: 14),
+                                    color: Colors.red,
+                                    fontSize: 14,
+                                  ),
                                 ),
                               ),
                             const SizedBox(height: 2),
@@ -145,7 +153,9 @@ class _LoginviewState extends State<Loginview> {
                                 child: const Text(
                                   "Forgot password?",
                                   style: TextStyle(
-                                      fontSize: 14, color: Colors.blue),
+                                    fontSize: 14,
+                                    color: Colors.blue,
+                                  ),
                                 ),
                               ),
                             ),
@@ -154,20 +164,41 @@ class _LoginviewState extends State<Loginview> {
                             SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
-                                onPressed: _login,
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  // backgroundColor:
-                                  //     const Color.fromARGB(255, 101, 177, 240),
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 6),
-                                ),
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    context.read<LoginBloc>().add(
+                                          LoginUserEvent(
+                                            context: context,
+                                            email: _emailController.text,
+                                            password: _passwordController.text,
+                                          ),
+                                        );
+
+                                    if (_emailController.text =='binu@gmail.com' &&
+                                        _passwordController.text == 'binu12345') {
+                                      context.read<LoginBloc>().add(
+                                            NavigateHomeScreenEvent(
+                                              destination: Dashboardview(),
+                                              context: context,
+                                            ),
+                                          );
+                                    } else {
+                                      setState(() {
+                                        _errorMessage =
+                                            'Invalid username or password';
+                                      });
+                                      showMySnackBar(
+                                        context: context,
+                                        message: 'Invalid username or password',
+                                        color: Colors.red,
+                                      );
+                                    }
+                                  }
+                                },
                                 child: const Text(
-                                  'Sign In',
+                                  'Log In',
                                   style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 20,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -190,19 +221,27 @@ class _LoginviewState extends State<Loginview> {
                 children: [
                   const Text(
                     "Don't have an account?",
-                    style: TextStyle(fontFamily: 'Inter', color: Colors.black),
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      color: Colors.black,
+                    ),
                   ),
                   TextButton(
+                    key: const ValueKey('registerButton'),
                     onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Registerview()),
-                      );
+                      context.read<LoginBloc>().add(
+                            NavigateRegisterScreenEvent(
+                              destination: RegisterView(),
+                              context: context,
+                            ),
+                          );
                     },
                     child: const Text(
                       'Sign up',
-                      style: TextStyle(fontFamily: 'Inter', color: Colors.blue),
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
                 ],
@@ -212,29 +251,5 @@ class _LoginviewState extends State<Loginview> {
         ),
       ),
     );
-  }
-
-  void _login() {
-    if (_formKey.currentState!.validate()) {
-      final email = _emailController.text;
-      final password = _passwordController.text;
-
-      // Check if the email and password match the registered credentials
-      if (email == RegisterviewState.registeredEmail &&
-          password == RegisterviewState.registeredPassword) {
-        print('Login successful');
-        _errorMessage = null; // Clear previous errors
-
-        // Navigate to the HomePageView after successful login
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const Dashboardview()),
-        );
-      } else {
-        setState(() {
-          _errorMessage = 'Invalid email or password. Please try again.';
-        });
-      }
-    }
   }
 }

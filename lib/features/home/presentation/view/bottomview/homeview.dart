@@ -161,8 +161,8 @@ class Homeview extends StatelessWidget {
                             child: Column(
                               children: [
                                 Container(
-                                  width: screenWidth * 0.09,
-                                  height: screenWidth * 0.1,
+                                  width: screenWidth * 0.2,
+                                  height: screenWidth * 0.2,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: Colors.grey[300],
@@ -225,8 +225,8 @@ class Homeview extends StatelessWidget {
                           topDestinations.length,
                           (index) => Container(
                             margin: EdgeInsets.only(right: screenWidth * 0.04),
-                            width: screenWidth * 0.3,
-                            height: screenHeight * 0.25,
+                            width: screenWidth * 0.45,
+                            height: screenHeight * 0.3,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               image: DecorationImage(
@@ -301,8 +301,8 @@ class Homeview extends StatelessWidget {
                           moreToExplore.length,
                           (index) => Container(
                             margin: EdgeInsets.only(right: screenWidth * 0.04),
-                            width: screenWidth * 0.3,
-                            height: screenHeight * 0.25,
+                            width: screenWidth * 0.45,
+                            height: screenHeight * 0.3,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               image: DecorationImage(
