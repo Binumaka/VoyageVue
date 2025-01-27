@@ -34,15 +34,14 @@ class AppTheme {
         style: ElevatedButton.styleFrom(
           elevation: 9,
           foregroundColor: Colors.white,
-          backgroundColor: ThemeConstant.primaryColor,
+          backgroundColor: const Color.fromARGB(255, 101, 145, 215),
           textStyle: const TextStyle(
-            fontSize: 24,
+            fontSize: 20,
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          padding:
-            const EdgeInsets.symmetric(vertical: 7),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
         ),
       ),
 
@@ -70,7 +69,7 @@ class AppTheme {
       ),
       //Bottom navigation bar theme
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Color.fromARGB(255, 82, 136, 211),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.black,
         type: BottomNavigationBarType.fixed,
