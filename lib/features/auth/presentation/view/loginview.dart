@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:voyagevue/core/common/snackbar/my_snackbar.dart';
 import 'package:voyagevue/features/auth/presentation/view/registerview.dart';
 import 'package:voyagevue/features/auth/presentation/view_model/login/login_bloc.dart';
-import 'package:voyagevue/features/home/presentation/view/dashboardview.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -14,8 +12,8 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController(text: 'binu@gmail.com');
-  final _passwordController = TextEditingController(text: 'binu12345');
+  final _emailController = TextEditingController(text: '');
+  final _passwordController = TextEditingController(text: '');
   bool _isPasswordVisible = false;
   String? _errorMessage;
 
@@ -63,7 +61,7 @@ class _LoginViewState extends State<LoginView> {
                             const SizedBox(height: 40),
                             // Email Field
                             TextFormField(
-                              key: const ValueKey('username'),
+                              key: const ValueKey('email'),
                               controller: _emailController,
                               decoration: InputDecoration(
                                 prefixIcon: const Icon(
@@ -83,7 +81,7 @@ class _LoginViewState extends State<LoginView> {
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Please enter username';
+                                  return 'Please enter email';
                                 }
                                 return null;
                               },
@@ -173,26 +171,6 @@ class _LoginViewState extends State<LoginView> {
                                             password: _passwordController.text,
                                           ),
                                         );
-
-                                    if (_emailController.text =='binu@gmail.com' &&
-                                        _passwordController.text == 'binu12345') {
-                                      context.read<LoginBloc>().add(
-                                            NavigateHomeScreenEvent(
-                                              destination: Dashboardview(),
-                                              context: context,
-                                            ),
-                                          );
-                                    } else {
-                                      setState(() {
-                                        _errorMessage =
-                                            'Invalid username or password';
-                                      });
-                                      showMySnackBar(
-                                        context: context,
-                                        message: 'Invalid username or password',
-                                        color: Colors.red,
-                                      );
-                                    }
                                   }
                                 },
                                 child: const Text(
