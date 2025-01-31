@@ -66,18 +66,29 @@ class ProfileScreen extends StatelessWidget {
             ),
             const Divider(),
 
-            IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () {
-                // Logout code
-                showMySnackBar(
-                  context: context,
-                  message: 'Logging out...',
-                  color: Colors.red,
-                );
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.logout),
+                  onPressed: () {
+                    // Logout code
+                    showMySnackBar(
+                      context: context,
+                      message: 'Logging out...',
+                      color: Colors.red,
+                    );
 
-                context.read<HomeCubit>().logout(context);
-              },
+                    context.read<HomeCubit>().logout(context);
+                  },
+                ),
+                const Text(
+                  'Logout',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
