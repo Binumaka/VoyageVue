@@ -14,7 +14,7 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final _gap = const SizedBox(height: 16);
+  final _gap = const SizedBox(height: 20);
   final _key = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _usernameController = TextEditingController();
@@ -70,7 +70,7 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                       ),
                       builder: (context) => Padding(
-                        padding: const EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(14),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -117,7 +117,7 @@ class _RegisterViewState extends State<RegisterView> {
                     child: const Align(
                       alignment: Alignment.bottomRight,
                       child: CircleAvatar(
-                        radius: 18,
+                        radius: 22,
                         backgroundColor: Colors.white,
                         child: Icon(
                           Icons.edit,
@@ -287,30 +287,33 @@ class _RegisterViewState extends State<RegisterView> {
                   height: 1,
                   color: Colors.grey.shade400,
                 ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Already have an account?",
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        color: Colors.black,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text(
-                        'Sign In',
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Already have an account?",
                         style: TextStyle(
                           fontFamily: 'Inter',
-                          color: Colors.blue,
+                          color: Colors.black,
                         ),
                       ),
-                    ),
-                  ],
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Sign In',
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
