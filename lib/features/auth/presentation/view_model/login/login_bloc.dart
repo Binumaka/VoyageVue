@@ -85,7 +85,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
                 destination: Dashboardview(),
               ),
             );
-            //_homeCubit.setToken(token);
           },
         );
       },
