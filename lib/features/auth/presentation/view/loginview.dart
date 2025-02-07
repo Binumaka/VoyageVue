@@ -194,6 +194,9 @@ class _LoginViewState extends State<LoginView> {
                 height: 1,
                 color: Colors.grey.shade400,
               ),
+              SizedBox(
+                height: 15,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -204,15 +207,14 @@ class _LoginViewState extends State<LoginView> {
                       color: Colors.black,
                     ),
                   ),
-                  TextButton(
-                    key: const ValueKey('registerButton'),
-                    onPressed: () {
-                      context.read<LoginBloc>().add(
-                            NavigateRegisterScreenEvent(
-                              destination: RegisterView(),
-                              context: context,
-                            ),
-                          );
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegisterView(),
+                        ),
+                      );
                     },
                     child: const Text(
                       'Sign up',
