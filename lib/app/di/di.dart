@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:voyagevue/app/shared_prefs/token_shared_prefs.dart';
 import 'package:voyagevue/core/network/api_service.dart';
 import 'package:voyagevue/core/network/hive_service.dart';
 import 'package:voyagevue/features/auth/data/data_source/local_data_source/auth_local_datasource.dart';
@@ -20,7 +22,7 @@ Future<void> initDependencies() async {
   // First initialize hive service
   await _initHiveService();
   await _initApiService();
-
+  await _initSharedPreferences();
   await _initHomeDependencies();
   await _initRegisterDependencies();
   await _initLoginDependencies();
@@ -36,6 +38,11 @@ _initApiService() {
   getIt.registerLazySingleton<Dio>(
     () => ApiService(Dio()).dio,
   );
+}
+
+Future<void> _initSharedPreferences() async {
+  final sharedPreferences = await SharedPreferences.getInstance();
+  getIt.registerLazySingleton<SharedPreferences>(( )=> sharedPreferences);
 }
 
 _initRegisterDependencies() {
@@ -99,10 +106,15 @@ _initLoginDependencies() async {
   //     getIt<AuthLocalRepository>(),
   //   ),
   // );
-
+  //==================== Token Shared Preferences ===============
+  getIt.registerLazySingleton<TokenSharedPrefs>(
+    () => TokenSharedPrefs(getIt<SharedPreferences>()),
+  );
+//======================usecases===============
   getIt.registerLazySingleton<LoginUseCase>(
     () => LoginUseCase(
       getIt<AuthRemoteRepository>(),
+      getIt<TokenSharedPrefs>(),
     ),
   );
 
