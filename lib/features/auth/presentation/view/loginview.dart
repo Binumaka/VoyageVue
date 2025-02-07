@@ -7,10 +7,10 @@ class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<LoginView> createState() => LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class LoginViewState extends State<LoginView> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController(text: '');
   final _passwordController = TextEditingController(text: '');
@@ -18,6 +18,29 @@ class _LoginViewState extends State<LoginView> {
   String? _errorMessage;
 
   final _gap = const SizedBox(height: 25);
+
+  // Form key for validation
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  // Email validation function
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Email is required';
+    }
+    if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+      return 'Enter a valid email address';
+    }
+    return null;
+  }
+
+  // Password validation function
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Password is required';
+    }
+    return null;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,12 +102,7 @@ class _LoginViewState extends State<LoginView> {
                                 ),
                               ),
                               keyboardType: TextInputType.emailAddress,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter email';
-                                }
-                                return null;
-                              },
+                              validator: validateEmail,
                             ),
                             _gap,
                             // Password Field
@@ -120,12 +138,7 @@ class _LoginViewState extends State<LoginView> {
                                   },
                                 ),
                               ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter password';
-                                }
-                                return null;
-                              },
+                              validator: validatePassword,
                             ),
                             const SizedBox(height: 10),
                             // Error Message

@@ -10,16 +10,16 @@ class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
 
   @override
-  State<RegisterView> createState() => _RegisterViewState();
+  State<RegisterView> createState() => RegisterViewState();
 }
 
-class _RegisterViewState extends State<RegisterView> {
+class RegisterViewState extends State<RegisterView> {
   final _gap = const SizedBox(height: 20);
   final _key = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmpasswordController = TextEditingController();
+  final emailController = TextEditingController();
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmpasswordController = TextEditingController();
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
   String? _errorMessage;
@@ -144,7 +144,7 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                         _gap,
                         TextFormField(
-                          controller: _emailController,
+                          controller: emailController,
                           decoration: InputDecoration(
                             prefixIcon:
                                 const Icon(Icons.email, color: Colors.black),
@@ -163,7 +163,7 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                         _gap,
                         TextFormField(
-                          controller: _usernameController,
+                          controller: usernameController,
                           decoration: InputDecoration(
                             prefixIcon:
                                 const Icon(Icons.person, color: Colors.black),
@@ -185,7 +185,7 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                         _gap,
                         TextFormField(
-                          controller: _passwordController,
+                          controller: passwordController,
                           obscureText: !isPasswordVisible,
                           decoration: InputDecoration(
                             prefixIcon:
@@ -218,7 +218,7 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                         _gap,
                         TextFormField(
-                          controller: _confirmpasswordController,
+                          controller: confirmpasswordController,
                           obscureText: !isConfirmPasswordVisible,
                           decoration: InputDecoration(
                             prefixIcon:
@@ -243,7 +243,7 @@ class _RegisterViewState extends State<RegisterView> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please confirm your password';
-                            } else if (value != _passwordController.text) {
+                            } else if (value != passwordController.text) {
                               return 'Passwords do not match';
                             }
                             return null;
@@ -266,11 +266,11 @@ class _RegisterViewState extends State<RegisterView> {
                                 context.read<RegisterBloc>().add(
                                       RegisterUser(
                                         context: context,
-                                        email: _emailController.text,
-                                        username: _usernameController.text,
-                                        password: _passwordController.text,
+                                        email: emailController.text,
+                                        username: usernameController.text,
+                                        password: passwordController.text,
                                         confirmPassword:
-                                            _confirmpasswordController.text,
+                                            confirmpasswordController.text,
                                         image: imageName,
                                       ),
                                     );
