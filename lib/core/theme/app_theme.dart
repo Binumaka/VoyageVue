@@ -18,17 +18,6 @@ class AppTheme {
       fontFamily: 'Montserrat',
       useMaterial3: true,
 
-      // Change app bar color
-      // appBarTheme: const AppBarTheme(
-      //   elevation: 0,
-      //   backgroundColor: ThemeConstant.appBarColor,
-      //   centerTitle: true,
-      //   titleTextStyle: TextStyle(
-      //     color: Colors.white,
-      //     fontSize: 20,
-      //   ),
-      // ),
-
       // Change elevated button theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
