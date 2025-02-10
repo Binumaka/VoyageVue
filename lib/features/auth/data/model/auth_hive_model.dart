@@ -18,7 +18,7 @@ class AuthHiveModel extends Equatable{
   @HiveField(4)
   final String username;
   @HiveField(5)
-  final String password;
+  final String? password;
 
   AuthHiveModel({
     String? userId,
