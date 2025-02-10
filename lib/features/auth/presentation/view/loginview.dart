@@ -41,7 +41,6 @@ class LoginViewState extends State<LoginView> {
     return null;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -221,13 +220,14 @@ class LoginViewState extends State<LoginView> {
                     ),
                   ),
                   InkWell(
+                    key: const ValueKey('registerButton'),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterView(),
-                        ),
-                      );
+                      context.read<LoginBloc>().add(
+                            NavigateRegisterScreenEvent(
+                              destination: RegisterView(),
+                              context: context,
+                            ),
+                          );
                     },
                     child: const Text(
                       'Sign up',
