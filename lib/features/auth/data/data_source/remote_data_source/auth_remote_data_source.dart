@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voyagevue/app/constants/api_endpoints.dart';
+import 'package:voyagevue/app/shared_prefs/token_shared_prefs.dart';
 import 'package:voyagevue/features/auth/data/data_source/auth_data_source.dart';
 import 'package:voyagevue/features/auth/data/model/auth_api_model.dart';
 
@@ -39,34 +40,34 @@ class AuthRemoteDataSource implements IAuthDataSource {
   @override
   Future<AuthEntity> getCurrentUser() async {
     try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      final String? userId = prefs.getString('userId');
-      final String? token = prefs.getString('token');
+      final sharedPreferences = await SharedPreferences.getInstance();
+      final tokenPrefs = TokenSharedPrefs(sharedPreferences);
+      final tokenResult = await tokenPrefs.getToken();
+      final token = tokenResult.fold(
+        (failure) => throw Exception("Failed to get token: ${failure.message}"),
+        (token) => token,
+      );
 
-      print('🔍 Retrieved userId: $userId');
-      print('🔍 Retrieved token: $token');
-
-      if (userId == null || token == null) {
-        throw Exception('User ID or token not found');
-      }
-
-      final Response response = await _dio.get(
-        '${ApiEndpoints.getById}/$userId',
+      Response response = await _dio.get(
+        ApiEndpoints.getById,
         options: Options(
-          headers: {'Authorization': 'Bearer $token'},
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
         ),
       );
 
       if (response.statusCode == 200) {
-        final data = AuthApiModel.fromJson(response.data);
-        return data.toEntity();
+        AuthApiModel apiModel = AuthApiModel.fromJson(response.data);
+        return apiModel.toEntity();
       } else {
-        throw Exception(response.statusMessage);
+        throw Exception(
+            "Failed to get current user: ${response.statusMessage}");
       }
     } on DioException catch (e) {
-      throw Exception(e.response?.data ?? "An error occurred");
+      throw Exception("Dio Error: ${e.message}");
     } catch (e) {
-      throw Exception(e.toString());
+      throw Exception("Error: ${e.toString()}");
     }
   }
 
@@ -124,12 +125,12 @@ class AuthRemoteDataSource implements IAuthDataSource {
       throw Exception(e);
     }
   }
-  
- @override
+
+  @override
   Future<void> updateUser(AuthEntity user) async {
     try {
       Response response =
-          await _dio.put('${ApiEndpoints.updateById}/${user.userId}', data: {
+          await _dio.put('${ApiEndpoints.updateById}/${user.id}', data: {
         "username": user.username,
         "email": user.email,
         "profilePicture": user.image,
