@@ -32,7 +32,7 @@ class AuthApiModel extends Equatable {
   // To Entity
   AuthEntity toEntity() {
     return AuthEntity(
-      userId: id,
+      id: id,
       email: email,
       image: image,
       role: role,
@@ -44,7 +44,7 @@ class AuthApiModel extends Equatable {
   // From Entity
   factory AuthApiModel.fromEntity(AuthEntity entity) {
     return AuthApiModel(
-      id: entity.userId,
+      id: entity.id,
       email: entity.email,
       image: entity.image,
       role: entity.role,
