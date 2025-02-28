@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:voyagevue/core/common/snackbar/my_snackbar.dart';
 import 'package:voyagevue/features/auth/domain/usecase/login_usecase.dart';
 import 'package:voyagevue/features/auth/presentation/view_model/register/register_bloc.dart';
-import 'package:voyagevue/features/home/presentation/view/dashboardview.dart';
-import 'package:voyagevue/features/home/presentation/view_model/home_cubit.dart';
+import 'package:voyagevue/features/dashboard/presentation/view/dashboardview.dart';
+import 'package:voyagevue/features/dashboard/presentation/view_model/home_cubit.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';

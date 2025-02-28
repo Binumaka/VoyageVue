@@ -1,9 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:voyagevue/features/auth/presentation/view_model/register/register_bloc.dart';
 
 class RegisterView extends StatefulWidget {
@@ -14,7 +10,7 @@ class RegisterView extends StatefulWidget {
 }
 
 class RegisterViewState extends State<RegisterView> {
-  final _gap = const SizedBox(height: 20);
+  final _gap = const SizedBox(height: 18);
   final _key = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final usernameController = TextEditingController();
@@ -23,30 +19,6 @@ class RegisterViewState extends State<RegisterView> {
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
   String? _errorMessage;
-  File? _img;
-
-  checkCameraPermission() async {
-    if (await Permission.camera.request().isRestricted ||
-        await Permission.camera.request().isDenied) {
-      await Permission.camera.request();
-    }
-  }
-
-  Future<void> _browseImage(ImageSource imageSource) async {
-    try {
-      final image = await ImagePicker().pickImage(source: imageSource);
-      if (image != null) {
-        setState(() {
-          _img = File(image.path);
-          context.read<RegisterBloc>().add(
-                UploadImage(file: _img!),
-              );
-        });
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,76 +32,17 @@ class RegisterViewState extends State<RegisterView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(20),
-                        ),
-                      ),
-                      builder: (context) => Padding(
-                        padding: const EdgeInsets.all(14),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            ElevatedButton.icon(
-                              onPressed: () {
-                                checkCameraPermission();
-                                _browseImage(ImageSource.camera);
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(Icons.camera),
-                              label: const Text('Camera'),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue,
-                              ),
-                            ),
-                            ElevatedButton.icon(
-                              onPressed: () {
-                                _browseImage(ImageSource.gallery);
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(Icons.image),
-                              label: const Text('Gallery'),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 200,
-                    width: 200,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: _img != null
-                            ? FileImage(_img!) as ImageProvider
-                            : const AssetImage('assets/images/Journey-bro.png'),
-                      ),
-                    ),
-                    child: const Align(
-                      alignment: Alignment.bottomRight,
-                      child: CircleAvatar(
-                        radius: 22,
-                        backgroundColor: Colors.white,
-                        child: Icon(
-                          Icons.edit,
-                          size: 18,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.3,
+                  width: double.infinity,
+                  color: Colors.white,
+                  child: Image.asset(
+                    'assets/images/Journey-bro.png',
+                    fit: BoxFit.contain,
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   child: Form(
                     key: _key,
                     child: Column(
@@ -287,33 +200,30 @@ class RegisterViewState extends State<RegisterView> {
                   height: 1,
                   color: Colors.grey.shade400,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Already have an account?",
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Already have an account? ",
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        color: Colors.black,
+                      ),
+                    ),
+                    InkWell(
+                      key: const ValueKey('loginButton'),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        'Sign In',
                         style: TextStyle(
                           fontFamily: 'Inter',
-                          color: Colors.black,
+                          color: Colors.blue,
                         ),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text(
-                          'Sign In',
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),

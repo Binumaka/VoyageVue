@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:voyagevue/app/constants/api_endpoints.dart';
 import 'package:voyagevue/features/auth/data/data_source/auth_data_source.dart';
+import 'package:voyagevue/features/auth/data/model/auth_api_model.dart';
 
 import '../../../domain/entity/auth_entity.dart';
 
@@ -35,8 +37,37 @@ class AuthRemoteDataSource implements IAuthDataSource {
   }
 
   @override
-  Future<AuthEntity> getCurrentUser() {
-    throw UnimplementedError();
+  Future<AuthEntity> getCurrentUser() async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? userId = prefs.getString('userId');
+      final String? token = prefs.getString('token');
+
+      print('🔍 Retrieved userId: $userId');
+      print('🔍 Retrieved token: $token');
+
+      if (userId == null || token == null) {
+        throw Exception('User ID or token not found');
+      }
+
+      final Response response = await _dio.get(
+        '${ApiEndpoints.getById}/$userId',
+        options: Options(
+          headers: {'Authorization': 'Bearer $token'},
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        final data = AuthApiModel.fromJson(response.data);
+        return data.toEntity();
+      } else {
+        throw Exception(response.statusMessage);
+      }
+    } on DioException catch (e) {
+      throw Exception(e.response?.data ?? "An error occurred");
+    } catch (e) {
+      throw Exception(e.toString());
+    }
   }
 
   @override
@@ -85,6 +116,26 @@ class AuthRemoteDataSource implements IAuthDataSource {
 
         return str;
       } else {
+        throw Exception(response.statusMessage);
+      }
+    } on DioException catch (e) {
+      throw Exception(e);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+  
+ @override
+  Future<void> updateUser(AuthEntity user) async {
+    try {
+      Response response =
+          await _dio.put('${ApiEndpoints.updateById}/${user.userId}', data: {
+        "username": user.username,
+        "email": user.email,
+        "profilePicture": user.image,
+      });
+
+      if (response.statusCode != 200) {
         throw Exception(response.statusMessage);
       }
     } on DioException catch (e) {
