@@ -8,7 +8,7 @@ void main()async{
   await HiveService.init();
 
   await initDependencies();
-  runApp(
-    App()
+  runApp( 
+    App(),
   );
 }

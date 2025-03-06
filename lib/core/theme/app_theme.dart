@@ -12,7 +12,7 @@ class AppTheme {
               primary: ThemeConstant.darkPrimaryColor,
             )
           : const ColorScheme.light(
-              primary: Color.fromARGB(255, 17, 119, 20),
+              primary: Color.fromARGB(255, 249, 250, 250),
             ),
       brightness: isDarkMode ? Brightness.dark : Brightness.light,
       fontFamily: 'Montserrat',
