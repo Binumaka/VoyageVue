@@ -13,7 +13,7 @@ void main() {
   );
 
   const authEntity = AuthEntity(
-    userId: '123',
+    id: '123',
     email: 'test@example.com',
     image: 'profile.jpg',
     role: 'user',

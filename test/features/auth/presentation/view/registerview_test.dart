@@ -6,29 +6,29 @@ void main() {
 
   group('Email Validation Tests', () {
     test('validateEmail should return error if email is empty', () {
-      final result = registerViewState.emailController.text = '';
+      registerViewState.emailController.text = '';
       expect(registerViewState.emailController.text.isEmpty, true);
     });
 
     test('validateEmail should return error if email is invalid', () {
-      final result = registerViewState.emailController.text = 'invalid-email';
+      registerViewState.emailController.text = 'invalid-email';
       expect(registerViewState.emailController.text.contains('@'), false);
     });
 
     test('validateEmail should return null if email is valid', () {
-      final result = registerViewState.emailController.text = 'test@example.com';
+      registerViewState.emailController.text = 'test@example.com';
       expect(registerViewState.emailController.text.contains('@'), true);
     });
   });
 
   group('Username Validation Tests', () {
     test('validateUsername should return error if username is empty', () {
-      final result = registerViewState.usernameController.text = '';
+      registerViewState.usernameController.text = '';
       expect(registerViewState.usernameController.text.isEmpty, true);
     });
 
     test('validateUsername should return null if username is valid', () {
-      final result = registerViewState.usernameController.text = 'john_doe';
+      registerViewState.usernameController.text = 'john_doe';
       expect(registerViewState.usernameController.text.isNotEmpty, true);
     });
   });
@@ -39,7 +39,7 @@ void main() {
     });
 
     test('validatePassword should return null if password is valid', () {
-      final result = registerViewState.passwordController.text = 'password123';
+      registerViewState.passwordController.text = 'password123';
       expect(registerViewState.passwordController.text.isNotEmpty, true);
     });
 

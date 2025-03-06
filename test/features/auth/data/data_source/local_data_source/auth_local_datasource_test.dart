@@ -22,7 +22,7 @@ void main() {
     test('should return a current user', () async {
       // Adjusting the expected value to match the actual result (empty string for image)
       const expectedUser = AuthEntity(
-        userId: "1",
+        id: "1",
         email: "",
         image: "",
         role: "user", 
@@ -66,7 +66,7 @@ void main() {
  
     test('should register user successfully', () async {
       const user = AuthEntity(
-        userId: "1",
+        id: "1",
         email: "test@example.com",
         image: null,
         username: "testUser",
@@ -86,7 +86,7 @@ void main() {
  
     test('should throw error when registration fails', () async {
       const user = AuthEntity(
-        userId: "1",
+        id: "1",
         email: "test@example.com",
         image: null,
         username: "testUser",

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:voyagevue/app/constants/api_endpoints.dart';
-import 'package:voyagevue/features/auth/data/data_source/remote_data_sourse/auth_remote_data_source.dart';
+import 'package:voyagevue/features/auth/data/data_source/remote_data_source/auth_remote_data_source.dart';
 import 'package:voyagevue/features/auth/domain/entity/auth_entity.dart';
 
 class MockDio extends Mock implements Dio {}

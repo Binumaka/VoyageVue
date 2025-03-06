@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:voyagevue/core/error/failure.dart';
-import 'package:voyagevue/features/auth/data/data_source/remote_data_sourse/auth_remote_data_source.dart';
+import 'package:voyagevue/features/auth/data/data_source/remote_data_source/auth_remote_data_source.dart';
 import 'package:voyagevue/features/auth/data/repository/remote_repository/auth_remote_repository.dart';
 import 'package:voyagevue/features/auth/domain/entity/auth_entity.dart';
 
