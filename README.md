@@ -10,8 +10,10 @@ Features
 -Bucketlist (save the next destination to travel) 
 
 
-//=======Screenshot of the VoyageVue===========//
+//=======Screenshot of the VoyageVue===========
+
 Mobile App View
+
 ![Splash Screen](assets/images/SplashScreen.png)
 ![Onboarding Screen1](assets/images/OnboardingScreen1.png)
 ![Onboarding Screen2](assets/images/OnboardingScreen2.png)
