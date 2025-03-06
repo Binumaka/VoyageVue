@@ -8,7 +8,7 @@ import 'package:voyagevue/features/auth/domain/entity/auth_entity.dart';
 part 'auth_hive_model.g.dart';
 
 @HiveType(typeId: HiveTableConstant.userTableId)
-class AuthHiveModel extends Equatable{
+class AuthHiveModel extends Equatable {
   @HiveField(0)
   final String? userId;
   @HiveField(1)
@@ -26,37 +26,37 @@ class AuthHiveModel extends Equatable{
     this.image,
     required this.username,
     required this.password,
-  }) : userId = userId?? const Uuid().v4();
+  }) : userId = userId ?? const Uuid().v4();
 
   //Initial Constructor
   const AuthHiveModel.initial()
-  : userId = '',
-  email = '',
-  image = '',
-  username = '',
-  password = '';
+      : userId = '',
+        email = '',
+        image = '',
+        username = '',
+        password = '';
 
   //From Entity
-  factory AuthHiveModel.fromEntity(AuthEntity entity){
-  return AuthHiveModel(
-    userId: entity.userId,
-    email: entity.email, 
-    username: entity.username, 
-    password: entity.password,
+  factory AuthHiveModel.fromEntity(AuthEntity entity) {
+    return AuthHiveModel(
+      userId: entity.id,
+      email: entity.email,
+      username: entity.username,
+      password: entity.password,
     );
   }
 
   //To Entity
   AuthEntity toEntity() {
     return AuthEntity(
-      userId: userId,
+      id: userId,
       email: email,
       image: image,
       username: username,
       password: password,
     );
   }
-  
+
   @override
-  List<Object?> get props => [userId, email,image, username, password];
+  List<Object?> get props => [userId, email, image, username, password];
 }

@@ -48,7 +48,11 @@ class AuthRemoteRepository implements IAuthRepository {
       final user = await _authRemoteDataSource.getCurrentUser();
       return Right(user);
     } catch (e) {
-      return Left(ApiFailure(message: e.toString(), statusCode: 500));
+      return Left(
+        ApiFailure(
+          message: e.toString(),
+        ),
+      );
     }
   }
 

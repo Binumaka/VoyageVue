@@ -5,7 +5,7 @@ void main() {
   group('AuthEntity', () {
     test('should be equal when all fields are the same', () {
       final user1 = AuthEntity(
-        userId: '123',
+        id: '123',
         email: 'john.doe@example.com',
         image: 'image.png',
         role: 'admin',
@@ -14,7 +14,7 @@ void main() {
       );
 
       final user2 = AuthEntity(
-        userId: '123',
+        id: '123',
         email: 'john.doe@example.com',
         image: 'image.png',
         role: 'admin',
@@ -27,7 +27,7 @@ void main() {
 
     test('should not be equal when fields differ', () {
       final user1 = AuthEntity(
-        userId: '123',
+        id: '123',
         email: 'john.doe@example.com',
         image: 'image.png',
         role: 'admin',
@@ -36,7 +36,7 @@ void main() {
       );
 
       final user2 = AuthEntity(
-        userId: '124', // Different userId
+        id: '124', // Different userId
         email: 'john.doe@example.com',
         image: 'image.png',
         role: 'admin',

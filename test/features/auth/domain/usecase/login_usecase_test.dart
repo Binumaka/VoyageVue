@@ -36,9 +36,6 @@ void main() {
       when(() => tokenSharedPrefs.saveToken(any()))
           .thenAnswer((_) async => const Right(null));
 
-      when(() => tokenSharedPrefs.getToken())
-          .thenAnswer((_) async => const Right('token'));
-
       final result = await useCase(
           const LoginParams(email: 'abc@gmail.com', password: '123456789'));
 
